@@ -1,0 +1,86 @@
+│---RStudio 2022.07.2 Build 576  
+
+1.	Carbonateye girerkenkonut sistemini acip ssh skacar@carbonate.uits.iu.edu yaziyoruz ve Pass wordumuzu yaziyoruz ve duo kodumuzu yaziyoz carbonatedeyiz!
+2.	Carboante yerine big red 200 e girmen gerek  ssh skacar@bigred200.uits.iu.edu
+3.	Quartz log in  “ssh skacar@quartz.uits.iu.edu “
+4.	Pwd : hangi klasorde calisiyom onu gosteriyo
+5.	Ls: everything in current directory
+6.	Ls de gosterilen bir foldera gitmek  cd folder name  cd singlecell
+7.	TO go previous directory, cd ..
+8.	To go root directory cd /
+9.	Cp filename change name: For example in singlecell folder make another singlecell folder with name of singlecell2. cp singlecell singlecell2
+10.	rm filename : delete specific file
+11.	cp filename /home : sozu gecen fileyi homea kopyala
+12.	Yeni dosya yapma mkdir foldername  .. removing directory is different  rmdir foldername
+13.	Eger folder icinde birsey varsa soyle silebilirsin rm -r foldername
+14.	man command give information about command
+15.	mv foldername othername : change folder name ELHAMDULILLAHYARABBI
+16.	mv foldername Directory lie C:// .. Bir dosyayi istedigin yere tasiyabiliyosun.
+17.	Bir folder geriye tasima mv foldername ../
+EXTRACT a file in terminal : tar -xvf filename with file extension
+<- kisa yolu Alt+ -
+
+IU SUPERCOMPUTER LINK: https://www.youtube.com/watch?v=pii0H5P6e5o
+
+https://www.youtube.com/watch?v=pii0H5P6e5o
+
+
+/N/u/skacar/Quartz
+[skacar@h2 ~]$ cd /N/slate/skacar
+[skacar@h2 skacar]$ pwd
+/N/slate/skacar
+[skacar@h2 skacar]$ ls
+[skacar@h2 skacar]$ ls
+[skacar@h2 skacar]$ cd /N/Quartz/skacar
+-bash: cd: /N/Quartz/skacar: No such file or directory
+[skacar@h2 skacar]$ cd /N/u/skacar/Quartz
+
+
+
+
+library(Seurat)
+library(hdf5r)
+counts <- Read10X(data.dir = "data/")
+#counts2 <- Read10X_h5("data/WB_Lysis_Granulocytes_3p_Introns_8kCells_filtered_feature_bc_matrix.h5")
+seurat <- CreateSeuratObject(counts, project="DS1")
+
+seurat[["percent.mt"]] <- PercentageFeatureSet(seurat, pattern = "^MT[-\\.]")
+
+VlnPlot(seurat, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+VlnPlot(seurat, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3, pt.size=0)
+
+library(patchwork)
+plot1 <- FeatureScatter(seurat, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(seurat, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+seurat <- subset(seurat, subset = nFeature_RNA > 500 & nFeature_RNA < 5000 & percent.mt < 5)
+seurat <- NormalizeData(seurat)
+seurat <- FindVariableFeatures(seurat, nfeatures = 3000)
+top_features <- head(VariableFeatures(seurat), 20)
+plot1 <- VariableFeaturePlot(seurat)
+plot2 <- LabelPoints(plot = plot1, points = top_features, repel = TRUE)
+
+
+  ****************************************************************************
+
+generating ssh file /N/u/skacar/BigRed200/.ssh/id_rsa ...
+Generating public/private rsa key pair.
+Created directory '/N/u/skacar/BigRed200/.ssh'.
+Your identification has been saved in /N/u/skacar/BigRed200/.ssh/id_rsa
+Your public key has been saved in /N/u/skacar/BigRed200/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:tgvHel7YH8puV6K7QMD5qWHh1huMtPJ6ghFPcyKQF8o skacar@login1
+The key's randomart image is:
++---[RSA 3072]----+
+| ...             |
+|+..  . .         |
+|.E    *          |
+|  o +o.O .       |
+|   =.+B S        |
+|  . .= * *  . .  |
+|   o  + B o..o   |
+|  . ...+.=oo..   |
+|    .o.ooo*+.    |
++----[SHA256]-----+
+adding id to ssh file /N/u/skacar/BigRed200/.ssh/authorized_keys
+skacar@login1:~>
