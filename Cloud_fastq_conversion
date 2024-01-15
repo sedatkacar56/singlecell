@@ -1,0 +1,9 @@
+ANALYSIS WITH CLOUD
+1.	Use cloud application https://cloud.10xgenomics.com/cloud-analysis/projects/288aa151-718b-4646-8166-019c771b97ee/analyses/00dafa30-90bd-4630-89f8-85ad34c1e62c
+2.	Download txg-windows-v1.3.1 and copy its path where txg.exe is located
+3.	Or use curl -f -o txg-windows-v1.3.1.zip https://cf.10xgenomics.com/cloud-cli/v1.3.1/txg-windows-v1.3.1.zip
+4.	In terminal 
+5.	Enter txg.exe fastqs upload --project-id KIqhUXGLRkaBZgGcdxuX7g "<file_path>"
+6.	It will ask you “token number”. Take it from the cloud application and paste.
+7.	It will upload the files, each file must have I1, R1 and R2.
+8.	Then analyze. Know ur files reference number and details . They are needed for analyze. And you will get email after complete
