@@ -1,0 +1,92 @@
+ANALYSIS WITH CLOUD
+1.	Use cloud application https://cloud.10xgenomics.com/cloud-analysis/projects/288aa151-718b-4646-8166-019c771b97ee/analyses/00dafa30-90bd-4630-89f8-85ad34c1e62c
+2.	Download txg-windows-v1.3.1 and copy its path where txg.exe is located
+3.	Or use curl -f -o txg-windows-v1.3.1.zip https://cf.10xgenomics.com/cloud-cli/v1.3.1/txg-windows-v1.3.1.zip
+4.	In terminal 
+5.	Enter txg.exe fastqs upload --project-id KIqhUXGLRkaBZgGcdxuX7g "<file_path>"
+6.	It will ask you “token number”. Take it from the cloud application and paste.
+7.	It will upload the files, each file must have I1, R1 and R2.
+8.	Then analyze. Know ur files reference number and details . They are needed for analyze. And you will get email after complete
+Human reference curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+Cell ranger download curl -o cellranger-7.2.0.tar.gz https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.2.0.tar.gz?Expires=1705384916&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=OJOB-SmgxXF3cDbdykTD9YpeDM~c0pD4Qs~i0VsgQC~iJcmtWFvp7qrROWjjbXm2pxTPDYa3E9Qw7JLDi3E0mzxKM~iNDV-sDMD0ePunEaeQVrd8EXaRrDBZx~wZgvT1MxnVUmSrHT93pLsBR5gjvJdQp-MJtRA-p6DAq5KpDGTx4oJ2wAfRAJBqRxFR0jiQSX9bsu2QAS8iD~jQiIhG3jN7mZGTlbKYbDD~fL4Mw--JNWlYEIRquGbe4LqnDrBOZ7OeT2iOVhK-D-3OojeKXNXJ2P4y2UQmEt7tDqg11eZO4eL8Y4eCrDTALYgdY7qLtQZOZsFlI4yon6VYyhdc-g__”
+
+curl -o cellranger-7.2.0.tar.gz https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.2.0.tar.gz?Expires=1705659599&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=mhbMBoo3pjQhAZf~4QvX6TcJ20IFURxDC0Ol88SX-BrTheSl00pk8J979xF-uSWFi3d9Ro6WlP24Co9ar~h7uddkI9aBP5XSDFu9BFQQJqqc07R62X0w~~UmKo0nqw91~mpDKOEFwaJt29FoUgPp08z54JeDkBOl01AqT2WH-Ko~zHN9YaV3xw59XRpDBwVnQlFP~N--07ZPpMirp9bRjm1EuHxp6mYl1FdR8EGLBFZg5i5hA4TkRaZySlezoWrR2u-E~v7bXJ6tBPsf2mwbcQww4wViREgODk69SA76DrOr-3t02JTR3MFOc5Yi0odQGEK56Dk9sOgkiYuqrCxXuA__
+
+$ tar -xzvf cellranger-7.2.0.tar.gz
+
+Building Custom reference
+https://www.10xgenomics.com/support/software/cell-ranger/latest/tutorials/cr-tutorial-mr
+
+
+
+Don’t forget gunzip Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa.gz
+It will be Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa
+
+
+
+And gunzip Rattus_norvegicus.mRatBN7.2.105.gtf.gz
+Generate Rattus_norvegicus.mRatBN7.2.105.gtf
+Run following code in the cell ranger folder!!!!!! And don’t forget include the folders of others
+
+./cellranger mkgtf \
+../Rattus_norvegicus.mRatBN7.2.105.gtf.gz ../Rattus_norvegicus.mRatBN7.2.105.filtered.gtf \
+--attribute=gene_biotype:protein_coding \
+--attribute=gene_biotype:lncRNA \
+--attribute=gene_biotype:antisense \
+--attribute=gene_biotype:IG_LV_gene \
+--attribute=gene_biotype:IG_V_gene \
+--attribute=gene_biotype:IG_V_pseudogene \
+--attribute=gene_biotype:IG_D_gene \
+--attribute=gene_biotype:IG_J_gene \
+--attribute=gene_biotype:IG_J_pseudogene \
+--attribute=gene_biotype:IG_C_gene \
+--attribute=gene_biotype:IG_C_pseudogene \
+--attribute=gene_biotype:TR_V_gene \
+--attribute=gene_biotype:TR_V_pseudogene \
+--attribute=gene_biotype:TR_D_gene \
+--attribute=gene_biotype:TR_J_gene \
+--attribute=gene_biotype:TR_J_pseudogene \
+--attribute=gene_biotype:TR_C_gene
+
+
+
+cellranger mkref \
+--genome=mRatBN7 \
+--fasta=../Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa.gz \
+--genes=../Rattus_norvegicus.mRatBN7.2.105.filtered.gtf \
+--ref-version=1.0.0
+
+
+
+The following worked
+
+
+
+cellranger-7.2.0                          Rattus_norvegicus.mRatBN7.2.105.filtered.gtf
+cellranger-7.2.0.tar.gz                   Rattus_norvegicus.mRatBN7.2.105.gtf
+Chrm_459_RafikovRuslan_scRNAseq1_Dec2023  Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa
+g                                         s4es-intro-to-HPC
+
+/N/slate/skacar/cellranger-7.2.0
+/N/slate/skacar
+
+./bin/cellranger mkref \
+--genome=mRatBN7 \
+--fasta=../Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa \
+--genes=../Rattus_norvegicus.mRatBN7.2.105.filtered.gtf \
+--ref-version=1.0.0
+
+
+
+/N/slate/skacar/cellranger-7.2.0/bin/cellranger mkref \
+--genome=mRatBN7 \
+--fasta=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa \
+--genes=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.105.filtered.gtf \
+--ref-version=1.0.0
+
+
+/N/slate/skacar/cellranger-7.2.0/bin/cellranger mkref \
+--genome=mRatBN7 \
+--fasta=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa \
+--genes=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.105.filtered.gtf \
+--ref-version=1.0.0
