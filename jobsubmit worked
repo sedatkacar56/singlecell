@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH -A r00717
+#SBATCH --job-name=cellranger_rat
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --mem=800G
+#SBATCH --time=5:00:00
+#SBATCH --mail-user=skacar@iu.edu
+#SBATCH --mail-type=END,FAIL
+#SBATCH --output=cellranger_mkref_rat.log
+
+CELLRANGER=/N/slate/skacar/cellranger-7.2.0/cellranger
+
+FASTA=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.dna.toplevel.fa
+
+GENES=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.105.filtered.gtf
+
+
+echo "About to run cellranger mkref..."
+
+
+$CELLRANGER mkref \
+--genome=mRatBN \
+--fasta=$FASTA \
+--genes=$GENES \
+--ref-version=1.0.0
