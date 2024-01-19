@@ -1,0 +1,14 @@
+Martian Runtime - v4.0.11
+2024-01-18 22:09:39 [jobmngr] WARNING: configured to use 453GB of local memory, but only 440.1GB is currently available.
+2024-01-18 22:09:39 [jobmngr] WARNING: The current virtual address space size
+                              limit is too low.
+        Limiting virtual address space size interferes with the operation of many
+        common libraries and programs, and is not recommended.
+        Contact your system administrator to remove this limit.
+2024-01-18 22:09:39 [runtime] Reattaching in local mode.
+Serving UI at http://h1.quartz.uits.iu.edu:40485?auth=E9kb0KEOeZIbRuWX2-EZYlaDC9-bFiFoOpD5KOFQxlU
+
+2024-01-18 22:09:39 [runtime] (reset-partial)   ID.mkref_mRatBN.MAKE_REFERENCE._MAKE_REFERENCE.fork0.join
+2024-01-18 22:09:39 [runtime] Found orphaned local stage: ID.mkref_mRatBN.MAKE_REFERENCE._MAKE_REFERENCE
+2024-01-18 22:09:39 [runtime] (split_complete)  ID.mkref_mRatBN.MAKE_REFERENCE._MAKE_REFERENCE
+2024-01-18 22:09:39 [runtime] (run:local)       ID.mkref_mRatBN.MAKE_REFERENCE._MAKE_REFERENCE.fork0.join
