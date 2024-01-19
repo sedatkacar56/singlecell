@@ -22,7 +22,7 @@ GENES=/N/slate/skacar/Rattus_norvegicus.mRatBN7.2.105.filtered.gtf
 echo "About to run cellranger mkref..."
 
 $CELLRANGER mkref \
---genome= mRatBN7 \
+--genome=mRatBN7 \
 --fasta=$FASTA \
 --genes=$GENES \
 --ref-version=1.0.0
